@@ -17,6 +17,7 @@ public class TripController {
     @Autowired
     private ParticipantService participantService;
 
+
     @Autowired
     private TripRepository repository;
 
@@ -46,6 +47,23 @@ public class TripController {
             rawTrip.setDestination(payload.destination());
 
             this.repository.save(rawTrip);
+
+            return ResponseEntity.ok(rawTrip);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}/confirm")
+    public ResponseEntity<Trip> confirmTrip(@PathVariable UUID id) {
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if (trip.isPresent()) {
+            Trip rawTrip = trip.get();
+            rawTrip.setIsConfirmed(true);
+
+            this.repository.save(rawTrip);
+            this.participantService.triggerConfirmationEmailToParticipants(id);
 
             return ResponseEntity.ok(rawTrip);
         }
