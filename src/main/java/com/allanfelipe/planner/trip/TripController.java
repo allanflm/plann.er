@@ -1,8 +1,6 @@
 package com.allanfelipe.planner.trip;
 
-import com.allanfelipe.planner.participant.ParticipantCreateResponse;
-import com.allanfelipe.planner.participant.ParticipantRequestPayload;
-import com.allanfelipe.planner.participant.ParticipantService;
+import com.allanfelipe.planner.participant.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -84,14 +82,23 @@ public class TripController {
 
             List<String> participantToInvite = new ArrayList<>();
             participantToInvite.add(payload.email());
-            ParticipantCreateResponse createResponse =  this.participantService.registerParticipantToEvent(payload.email(), rawTrip);
+            ParticipantCreateResponse createResponse = this.participantService.registerParticipantToEvent(payload.email(), rawTrip);
 
-            if(rawTrip.getIsConfirmed()) this.participantService.triggerConfirmationEmailToParticipant(payload.email());
+            if (rawTrip.getIsConfirmed())
+                this.participantService.triggerConfirmationEmailToParticipant(payload.email());
 
             return ResponseEntity.ok(createResponse);
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+
+    @GetMapping("/{id}/participants")
+    public ResponseEntity<List<ParticipantData>> getAllParticipants(@PathVariable UUID id) {
+        List<ParticipantData> participantList = this.participantService.getAllParticipantsFromEvent(id);
+
+        return ResponseEntity.ok(participantList);
     }
 
 }
