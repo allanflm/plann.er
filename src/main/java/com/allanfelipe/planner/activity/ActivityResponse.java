@@ -1,4 +1,4 @@
-package com.allanfelipe.planner.activities;
+package com.allanfelipe.planner.activity;
 
 import java.util.UUID;
 

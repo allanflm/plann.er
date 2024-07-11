@@ -1,4 +1,4 @@
-package com.allanfelipe.planner.activities;
+package com.allanfelipe.planner.activity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

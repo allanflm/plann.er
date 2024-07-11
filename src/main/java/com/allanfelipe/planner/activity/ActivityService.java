@@ -1,4 +1,4 @@
-package com.allanfelipe.planner.activities;
+package com.allanfelipe.planner.activity;
 
 import com.allanfelipe.planner.trip.Trip;
 import org.springframework.beans.factory.annotation.Autowired;

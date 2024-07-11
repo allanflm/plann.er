@@ -1,4 +1,4 @@
-package com.allanfelipe.planner.activities;
+package com.allanfelipe.planner.activity;
 
 public record ActivityRequestPayload(String title, String occurs_at) {
 }
