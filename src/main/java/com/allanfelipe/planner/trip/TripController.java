@@ -1,6 +1,12 @@
 package com.allanfelipe.planner.trip;
 
-import com.allanfelipe.planner.participant.*;
+import com.allanfelipe.planner.activities.ActivityRequestPayload;
+import com.allanfelipe.planner.activities.ActivityResponse;
+import com.allanfelipe.planner.activities.ActivityService;
+import com.allanfelipe.planner.participant.ParticipantCreateResponse;
+import com.allanfelipe.planner.participant.ParticipantData;
+import com.allanfelipe.planner.participant.ParticipantRequestPayload;
+import com.allanfelipe.planner.participant.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +28,9 @@ public class TripController {
 
     @Autowired
     private TripRepository repository;
+
+    @Autowired
+    private ActivityService activityService;
 
     @PostMapping
     public ResponseEntity<TripCreateResponse> createTrip(@RequestBody TripRequestPayload payload) {
@@ -93,12 +102,27 @@ public class TripController {
         return ResponseEntity.notFound().build();
     }
 
-
     @GetMapping("/{id}/participants")
     public ResponseEntity<List<ParticipantData>> getAllParticipants(@PathVariable UUID id) {
         List<ParticipantData> participantList = this.participantService.getAllParticipantsFromEvent(id);
 
         return ResponseEntity.ok(participantList);
+    }
+
+    @PostMapping("/{id}/activities")
+    public ResponseEntity<ActivityResponse> registerActivity(@PathVariable UUID id, @RequestBody ActivityRequestPayload payload) {
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if (trip.isPresent()) {
+            Trip rawTrip = trip.get();
+
+            ActivityResponse activityResponse = this.activityService.registerActivity(payload, rawTrip);
+
+
+            return ResponseEntity.ok(activityResponse);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
 }
