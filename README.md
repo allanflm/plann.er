@@ -1,11 +1,11 @@
-# Planner API
-Visão Geral
-A Travel Planner API é uma API RESTful que permite aos usuários organizar viagens de trabalho ou lazer. Os usuários podem criar viagens, definir datas de início e fim, e planejar atividades diárias dentro dessas viagens. A API permite gerenciar todas as informações necessárias para uma viagem organizada e bem planejada.
+<h1>Planner API</h1>
+<h2>Visão Geral</h2>
+<p>A Travel Planner API é uma API RESTful que permite aos usuários organizar viagens de trabalho ou lazer. Os usuários podem criar viagens, definir datas de início e fim, e planejar atividades diárias dentro dessas viagens. A API permite gerenciar todas as informações necessárias para uma viagem organizada e bem planejada.</p>
 
-Funcionalidades Principais
-Gerenciamento de Viagens: Criar, visualizar, editar e excluir viagens.
+<h2>Funcionalidades Principais</h2>
+<p>Gerenciamento de Viagens: Criar, visualizar, editar e excluir viagens.
 Planejamento de Atividades: Adicionar, visualizar, editar e excluir atividades diárias dentro de uma viagem.
-Endpoints
+Endpoints</p>
 1. Viagens
 1.1. Criar uma Nova Viagem
 Método: POST
